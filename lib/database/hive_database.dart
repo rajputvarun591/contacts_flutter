@@ -36,17 +36,10 @@ class HiveDatabase {
     return await contactBox.put(contact.id, contact);
   }
 
-  List<Contact> deleteContacts(List<Contact> contacts) {
+  Future<void> deleteContacts(List<Contact> contacts) async{
     final contactBox = Hive.box(CONTACTS_BOX);
-    try {
-      for (Contact contact in contacts) {
-        contactBox.delete(contact.id);
-      }
-      return getAllContacts();
-    } on Exception catch (e) {
-      print(e.toString);
-      return getAllContacts();
-    }
+    List<String> keys = contacts.map((e) => e.id).toList();
+    return await contactBox.deleteAll(keys);
   }
 
   Future<void> updateContact(Contact contact, String id) async {

@@ -24,4 +24,11 @@ class ContactController extends GetxController {
       update();
     });
   }
+
+  void deleteContacts(List<Contact> contact) {
+    HiveDatabase().deleteContacts(contact).then((value) {
+      contacts.value = HiveDatabase().getAllContacts();
+      update();
+    });
+  }
 }

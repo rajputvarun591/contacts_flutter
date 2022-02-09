@@ -7,6 +7,7 @@ import 'package:contacts_flutter/models/contact.dart';
 import 'package:contacts_flutter/styles/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:math' as math;
 
@@ -48,6 +49,7 @@ class _ContactsPageState extends State<ContactsPage> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.blue));
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 250),
@@ -71,6 +73,11 @@ class _ContactsPageState extends State<ContactsPage> with SingleTickerProviderSt
   @override
   void dispose() {
     super.dispose();
+    animationController.dispose();
+    _firstName.dispose();
+    _lastName.dispose();
+    _contactNumber.dispose();
+    _address.dispose();
   }
 
   @override
@@ -233,33 +240,36 @@ class _ContactsPageState extends State<ContactsPage> with SingleTickerProviderSt
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(8.00),
                         ),
-                        child: Form(
-                            child: Column(
+                        child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            TextFormField(
+                            TextField(
                               controller: _firstName,
                               //validator: (value) => value != null && value.isNotEmpty ? null : "Enter First Name",
                               decoration: InputDecoration(labelText: "First Name", alignLabelWithHint: true),
                               textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.next,
                             ),
-                            TextFormField(
+                            TextField(
                               controller: _lastName,
                               //validator: (value) => value != null && value.isNotEmpty ? null : "Enter Last Name",
                               decoration: InputDecoration(labelText: "Last Name", alignLabelWithHint: true),
                               textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.next,
                             ),
-                            TextFormField(
+                            TextField(
                               controller: _contactNumber,
                               //validator: (value) => value != null && value.isNotEmpty ? null : "Enter Contact Number",
                               decoration: InputDecoration(labelText: "Contact Number", alignLabelWithHint: true),
                               textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.next,
                             ),
-                            TextFormField(
+                            TextField(
                               controller: _address,
                               //validator: (value) => value != null && value.isNotEmpty ? null : "Enter Address",
                               decoration: InputDecoration(labelText: "Address", alignLabelWithHint: true),
                               textCapitalization: TextCapitalization.sentences,
+                              textInputAction: TextInputAction.next,
                             ),
                             SizedBox(height: 10.00),
                             Container(
@@ -284,7 +294,7 @@ class _ContactsPageState extends State<ContactsPage> with SingleTickerProviderSt
                             ),
                             SizedBox(height: 10.00),
                           ],
-                        )),
+                        ),
                       ),
                     ),
                   ),
@@ -389,6 +399,7 @@ class _ContactsPageState extends State<ContactsPage> with SingleTickerProviderSt
         });
 
     if (isSure) {
+      controller.deleteContacts(_selectedContacts);
       setState(() {
         _isSelectionOpen = false;
       });
