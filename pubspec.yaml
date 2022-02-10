@@ -27,6 +27,8 @@ dependencies:
   get:
   path_provider:
   url_launcher:
+  image_picker:
+  image_cropper:
 
 
 

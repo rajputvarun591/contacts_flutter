@@ -33,17 +33,17 @@ class HiveDatabase {
 
   Future<void> saveContact(Contact contact) async {
     final contactBox = Hive.box(CONTACTS_BOX);
-    return await contactBox.put(contact.id, contact);
+    return await contactBox.put(contact.createdAt, contact);
   }
 
   Future<void> deleteContacts(List<Contact> contacts) async{
     final contactBox = Hive.box(CONTACTS_BOX);
-    List<String> keys = contacts.map((e) => e.id).toList();
+    List<String> keys = contacts.map((e) => e.createdAt).toList();
     return await contactBox.deleteAll(keys);
   }
 
-  Future<void> updateContact(Contact contact, String id) async {
-    final contactBox = Hive.box(CONTACTS_BOX);
-    return await contactBox.put(id, contact);
-  }
+  // Future<void> updateContact(Contact contact, int index) async {
+  //   final contactBox = Hive.box(CONTACTS_BOX);
+  //   return await contactBox.put(index, contact);
+  // }
 }

@@ -18,12 +18,12 @@ class ContactController extends GetxController {
     });
   }
 
-  void updateContact(Contact contact, String id) {
-    HiveDatabase().updateContact(contact, id).then((value) {
-      contacts.value = HiveDatabase().getAllContacts();
-      update();
-    });
-  }
+  // void updateContact(Contact contact, int index) {
+  //   HiveDatabase().updateContact(contact, index).then((value) {
+  //     contacts.value = HiveDatabase().getAllContacts();
+  //     update();
+  //   });
+  // }
 
   void deleteContacts(List<Contact> contact) {
     HiveDatabase().deleteContacts(contact).then((value) {
