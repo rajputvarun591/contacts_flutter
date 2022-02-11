@@ -13,20 +13,20 @@ class UserImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    BorderRadius br = BorderRadius.circular(10.00);
+    BorderRadius br = BorderRadius.circular((min(size.width, size.height) / 4) / 2);
     return InkWell(
       onTap: onTap,
       child: Container(
         height: min(size.width, size.height) / 4,
         width: min(size.width, size.height) / 4,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey.shade300,
           borderRadius: br,
         ),
         child: ClipRRect(
           borderRadius: br,
           child: image == null
-              ? Icon(Icons.person, color: Colors.blue, size: 30.00,)
+              ? Icon(Icons.person, color: Colors.white70, size: 35.00,)
               : Image.memory(image!, fit: BoxFit.cover,),
         ),
       ),

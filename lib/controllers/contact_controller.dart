@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class ContactController extends GetxController {
   RxList<Contact> contacts = RxList<Contact>();
+  var selectedContacts = <Contact>[].obs;
 
   @override
   InternalFinalCallback<void> get onStart{
@@ -18,17 +19,25 @@ class ContactController extends GetxController {
     });
   }
 
-  // void updateContact(Contact contact, int index) {
-  //   HiveDatabase().updateContact(contact, index).then((value) {
-  //     contacts.value = HiveDatabase().getAllContacts();
-  //     update();
-  //   });
-  // }
-
-  void deleteContacts(List<Contact> contact) {
-    HiveDatabase().deleteContacts(contact).then((value) {
+  void deleteContacts() {
+    HiveDatabase().deleteContacts(selectedContacts).then((value) {
       contacts.value = HiveDatabase().getAllContacts();
       update();
     });
+  }
+
+  void insertInDeleteList(Contact contact) {
+    selectedContacts.add(contact);
+    update();
+  }
+
+  void clearSelected() {
+    selectedContacts.clear();
+    update();
+  }
+
+  void removeFromSelected(Contact contact) {
+    selectedContacts.remove(contact);
+    update();
   }
 }

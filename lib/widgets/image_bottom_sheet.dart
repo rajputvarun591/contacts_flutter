@@ -47,7 +47,7 @@ class ImageBottomSheet extends StatelessWidget {
                   height: 1.00,
                 ),
                 InkWell(
-                  onTap: () => onCameraPressed(context),
+                  onTap: () => onGalleryPressed(context),
                   child: Container(
                       alignment: Alignment.center,
                       height: kTextTabBarHeight,

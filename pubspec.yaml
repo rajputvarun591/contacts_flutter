@@ -29,6 +29,7 @@ dependencies:
   url_launcher:
   image_picker:
   image_cropper:
+  permission_handler:
 
 
 

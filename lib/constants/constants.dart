@@ -1,16 +1,5 @@
 const String rpHomeView = '/';
-const String rpSecurityView = "/rpSecurityView";
-const String rpGoogleMap = "/rpGoogleMap";
-const String rpContactsView = "/rpContactsView";
-const String rpFlutterClock = "/rpFlutterClock";
-const String rpLiveLocation = "/rpLiveLocation";
-const String rpCurves = "/rpCurves";
-const String rpEmbeddedCamera = "/rpEmbeddedCamera";
-const String rpNavigatorChain = "/rpNavigatorChain";
-const String rpScreen1 = "/rpScreen1";
-const String rpScreen2 = "/rpScreen2";
-const String rpScreen3 = "/rpScreen3";
-const String rpIsolates = "/rpIsolates";
+const String rpAddEditContact = "/add_contact";
 
 const String apGoogleMapKey = "AIzaSyCmLj6VCpUZ2K-SEKGjdwpVWTeRs3Cop3U";
 

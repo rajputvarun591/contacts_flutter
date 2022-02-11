@@ -22,5 +22,11 @@ class Contact {
   @HiveField(6)
   Uint8List? image;
 
+
+  @override
+  String toString() {
+    return 'Contact{createdAt: $createdAt, firstName: $firstName, lastName: $lastName, contactNumber: $contactNumber, address: $address, email: $email, image: $image}';
+  }
+
   Contact(this.createdAt, this.firstName, this.lastName, this.contactNumber, this.address, this.image, this.email);
 }
