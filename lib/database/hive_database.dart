@@ -27,7 +27,7 @@ class HiveDatabase {
     for (int i = 0; i < contactBox.length; i++) {
       contacts.add(contactBox.getAt(i) as Contact);
     }
-    log(contactBox.toMap().toString());
+    //log(contactBox.toMap().toString());
     return contacts;
   }
 

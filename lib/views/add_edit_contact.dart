@@ -8,6 +8,7 @@ import 'package:contacts_flutter/controllers/contact_controller.dart';
 import 'package:contacts_flutter/models/address.dart';
 import 'package:contacts_flutter/models/contact.dart';
 import 'package:contacts_flutter/widgets/user_image.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,8 +43,6 @@ class _AddEditContactState extends State<AddEditContact> {
           _contactNumber.text.isNotEmpty &&
           _address.text.isNotEmpty && _email.text.isNotEmpty;
 
-  final TextStyle labelStyle = TextStyle(color: Colors.green);
-  final Color cursorColor = Colors.green;
   final Color filledColor = Colors.grey.shade300;
 
   @override
@@ -80,138 +79,121 @@ class _AddEditContactState extends State<AddEditContact> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.contact == null ? "Add Contact" : "Edit Contact"),
-        backgroundColor: Colors.green,
         elevation: 0.0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20.00, horizontal: 10.00),
-          decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark ? Color(0xFF7C7C7C) : Colors.white70,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8.00),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: kTextTabBarHeight),
-              UserImage(
-                onTap: onImageTap,
-                firstName: _firstName.text,
-                lastName: _lastName.text,
-                image: _image,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            SizedBox(height: 10.00),
+            UserImage(
+              onTap: onImageTap,
+              firstName: _firstName.text,
+              lastName: _lastName.text,
+              image: _image,
+            ),
+            SizedBox(height: 30.00),
+            TextField(
+              controller: _firstName,
+              decoration: InputDecoration(
+                labelText: "First Name",
+                alignLabelWithHint: false,
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.00)),
+                filled: true,
+                fillColor: filledColor,
               ),
-              SizedBox(height: 15.00),
-              TextField(
-                controller: _firstName,
-                decoration: InputDecoration(
-                  labelText: "First Name",
-                  alignLabelWithHint: false,
-                  labelStyle: labelStyle,
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: cursorColor, width: 2.00)),
-                  filled: true,
-                  fillColor: filledColor,
-                ),
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.next,
+            ),
+            SizedBox(height: 15.00),
+            TextField(
+              controller: _lastName,
+              decoration: InputDecoration(
+                labelText: "Last Name",
+                alignLabelWithHint: false,
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.00)),
+                filled: true,
+                fillColor: filledColor,
               ),
-              SizedBox(height: 15.00),
-              TextField(
-                controller: _lastName,
-                decoration: InputDecoration(
-                  labelText: "Last Name",
-                  alignLabelWithHint: false,
-                  labelStyle: labelStyle,
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: cursorColor, width: 2.00)),
-                  filled: true,
-                  fillColor: filledColor,
-                ),
-                cursorColor: cursorColor,
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.next,
+            ),
+            SizedBox(height: 15.00),
+            TextField(
+              controller: _contactNumber,
+              decoration: InputDecoration(
+                labelText: "Contact Number",
+                alignLabelWithHint: false,
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.00)),
+                filled: true,
+                fillColor: filledColor,
               ),
-              SizedBox(height: 15.00),
-              TextField(
-                controller: _contactNumber,
-                decoration: InputDecoration(
-                  labelText: "Contact Number",
-                  alignLabelWithHint: false,
-                  labelStyle: labelStyle,
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: cursorColor, width: 2.00)),
-                  filled: true,
-                  fillColor: filledColor,
-                ),
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 15.00),
+            TextField(
+              controller: _address,
+              decoration: InputDecoration(
+                labelText: "Address",
+                alignLabelWithHint: false,
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.00)),
+                filled: true,
+                fillColor: filledColor,
               ),
-              SizedBox(height: 15.00),
-              TextField(
-                controller: _address,
-                decoration: InputDecoration(
-                  labelText: "Address",
-                  alignLabelWithHint: false,
-                  labelStyle: labelStyle,
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: cursorColor, width: 2.00)),
-                  filled: true,
-                  fillColor: filledColor,
-                ),
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.next,
+            ),
+            SizedBox(height: 15.00),
+            TextField(
+              controller: _email,
+              decoration: InputDecoration(
+                labelText: "Email",
+                alignLabelWithHint: false,
+                border: InputBorder.none,
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2.00)),
+                filled: true,
+                fillColor: filledColor,
               ),
-              SizedBox(height: 15.00),
-              TextField(
-                controller: _email,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  alignLabelWithHint: false,
-                  labelStyle: labelStyle,
-                  border: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: cursorColor, width: 2.00)),
-                  filled: true,
-                  fillColor: filledColor,
-                ),
-                keyboardType: TextInputType.emailAddress,
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.next,
-              ),
-              SizedBox(height: 10.00),
-              SafeArea(
-                child: Container(
-                  constraints: BoxConstraints(minWidth: double.infinity),
-                  child: ElevatedButton(
-                    onPressed: isSaveEnable
-                        ? () {
-                            Address address = Address();
-                            address.name = _address.text;
-                            Contact contact = Contact(
-                              widget.contact == null ? DateTime.now().toIso8601String() : widget.contact!.createdAt,
-                              _firstName.text,
-                              _lastName.text,
-                              _contactNumber.text,
-                              address,
-                              _image,
-                              _email.text,
-                            );
-                            controller.addContact(contact);
-                            Get.back();
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 10.00),
-                      primary: cursorColor,
-                    ),
-                    child: Text(widget.contact == null ? "Create" : "Update", style: TextStyle(fontSize: 20.00),),
+              keyboardType: TextInputType.emailAddress,
+              textCapitalization: TextCapitalization.sentences,
+              textInputAction: TextInputAction.next,
+            ),
+            SizedBox(height: 40.00),
+            SafeArea(
+              child: Container(
+                constraints: BoxConstraints(minWidth: double.infinity),
+                child: ElevatedButton(
+                  onPressed: isSaveEnable
+                      ? () {
+                          Address address = Address();
+                          address.name = _address.text;
+                          Contact contact = Contact(
+                            widget.contact == null ? DateTime.now().toIso8601String() : widget.contact!.createdAt,
+                            _firstName.text,
+                            _lastName.text,
+                            _contactNumber.text,
+                            address,
+                            _image,
+                            _email.text,
+                          );
+                          controller.addContact(contact);
+                          Get.back();
+                        }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10.00),
                   ),
+                  child: Text(widget.contact == null ? "Create" : "Update", style: TextStyle(fontSize: 20.00),),
                 ),
               ),
-              SizedBox(height: kTextTabBarHeight),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

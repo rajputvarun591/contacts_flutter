@@ -1,5 +1,7 @@
 import 'package:contacts_flutter/models/contact.dart';
+import 'package:contacts_flutter/widgets/profile_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
@@ -11,7 +13,14 @@ class ContactTile extends StatelessWidget {
   final bool isSelected;
   final void Function(Contact) onTap;
   final void Function(Contact) onLongPress;
-  const ContactTile({Key? key, required this.contact, required this.isSelectionOpen, required this.isSelected, required this.onTap, required this.onLongPress}) : super(key: key);
+  const ContactTile(
+      {Key? key,
+      required this.contact,
+      required this.isSelectionOpen,
+      required this.isSelected,
+      required this.onTap,
+      required this.onLongPress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +28,19 @@ class ContactTile extends StatelessWidget {
       leading: Container(
         constraints: BoxConstraints.tight(Size(45.0, 45.00)),
         decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-        child: CircularImage(
-          image: contact.image,
-          firstName: contact.firstName,
-          lastname: contact.lastName,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10.00),
+          child: Hero(
+            tag: contact.createdAt.toString(),
+            transitionOnUserGestures: true,
+            placeholderBuilder: _placeHolder,
+            child: CircularImage(
+              image: contact.image,
+              firstName: contact.firstName,
+              lastname: contact.lastName,
+            ),
+          ),
+          onTap: () => _onProfieTap(context),
         ),
       ),
       title: Text(contact.firstName + " " + contact.lastName,
@@ -43,6 +61,7 @@ class ContactTile extends StatelessWidget {
             child: Visibility(
               visible: !isSelectionOpen,
               child: InkWell(
+                borderRadius: BorderRadius.circular(10.00),
                 child: Container(
                     padding: const EdgeInsets.all(6.00),
                     decoration: BoxDecoration(color: Colors.blue.shade400, shape: BoxShape.circle),
@@ -58,6 +77,7 @@ class ContactTile extends StatelessWidget {
             child: Visibility(
               visible: !isSelectionOpen,
               child: InkWell(
+                borderRadius: BorderRadius.circular(10.00),
                 child: Container(
                     padding: const EdgeInsets.all(6.00),
                     decoration: BoxDecoration(color: Colors.blue.shade400, shape: BoxShape.circle),
@@ -73,6 +93,7 @@ class ContactTile extends StatelessWidget {
             child: Visibility(
               visible: !isSelectionOpen,
               child: InkWell(
+                borderRadius: BorderRadius.circular(10.00),
                 child: Container(
                     padding: const EdgeInsets.all(6.00),
                     decoration: BoxDecoration(color: Colors.blue.shade400, shape: BoxShape.circle),
@@ -102,5 +123,15 @@ class ContactTile extends StatelessWidget {
       onTap: () => onTap(contact),
       onLongPress: () => onLongPress(contact),
     );
+  }
+
+  void _onProfieTap(BuildContext context) {
+    if (contact.image != null) {
+      Get.to(() => ProfileView(contact: contact), fullscreenDialog: false, opaque: false);
+    }
+  }
+
+  Widget _placeHolder(BuildContext context, Size heroSize, Widget child) {
+    return child;
   }
 }
