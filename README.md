@@ -1,6 +1,13 @@
 # contacts_flutter
 
 A new Flutter project for saves he contacts in local Database.
+### Features
+#### 1. Add Contacts in Local database permanantly untill delete by user. Using hive pacakage of flutter achieve Local database memeory.
+#### 2. Edit and Delete contacts by tapping and Selecting contacts by Long Press on them.
+#### 3. Profile Image Preview by tapping on profile picture with some of available option.
+#### 4. Launch default calling app by tapping on call button with the respective phone number.
+#### 5. Launch default Main Application by tapping on mail button with the respective email.
+#### 6. Launch default Messaging Application by tapping Message button with respective phone number.
 
 ## Sample Images
 Contact Listing        | Deleting The Contacts  | Add & Edit Contacts | Selecting The Contacts
